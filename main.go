@@ -67,6 +67,13 @@ func main(){
                         client.Say(message.Channel, "Set the topic of today's stream successfully")
                         write_data_to_file(todayfilename, strings.Join(stripped_msg[1:], " "))
                     }
+                case "shoutout":
+                    if(message.User.Name != "cobbcoding") {
+                        client.Say(message.Channel, "You're not allowed to do that")
+                    } else {
+                        streamer := strings.Join(stripped_msg[1:], " ")
+                        client.Say(message.Channel, fmt.Sprintf("Go follow %s on Twitch! twitch.tv/%s", streamer, streamer))
+                    }
                 case "today":
                     client.Say(message.Channel, read_token_from_file(todayfilename))
                 case "socials":
@@ -99,6 +106,7 @@ func main(){
     client.OnUserJoinMessage(func(message twitch.UserJoinMessage) {
         client.Say(message.Channel, fmt.Sprintf("%s: has joined the chat", message.User))
     })
+
     client.Join("cobbcoding")
 
     err := client.Connect()
