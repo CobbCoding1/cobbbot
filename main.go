@@ -62,11 +62,10 @@ func main() {
         "discord": "discord",
     }
 
-    var client goirc.Client
     token := read_string_from_file(".client")
-    client.Init(domain, port, token, "", name) 
+    client := goirc.Init(domain, port, token, "", name) 
     client.Connect()
-    defer client.Disconnect()
+    client.Disconnect()
 
     client.Join(server)
     for {
@@ -75,7 +74,6 @@ func main() {
             if(msg.Message[0] == '!') {
                 command := msg.Message[1:]
                 stripped_command := strings.Fields(command)
-                fmt.Println(stripped_command)
                 switch(stripped_command[0]){
                 case "ping":
                     client.Say("Pong!")
@@ -130,4 +128,5 @@ func main() {
 
         client.HandlePong()
     }
+
 }
