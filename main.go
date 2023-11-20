@@ -15,6 +15,7 @@ const (
     server = "cobbcoding"
     name = "cobbbot"
     todayfilename = "/.config/cobbbot/todaydata"
+    clientfilename = "/.config/cobbbot/.client"
     discord = "https://discord.gg/3SkpwrRxpA"
 )
 
@@ -62,7 +63,7 @@ func main() {
         "discord": "discord",
     }
 
-    token := read_string_from_file(".client")
+    token := read_string_from_file(home_dir + clientfilename)
     client := goirc.Init(domain, port, token, "", name) 
     client.Connect()
     client.Disconnect()
@@ -126,7 +127,6 @@ func main() {
             }
         }
 
-        client.HandlePong()
     }
 
 }
